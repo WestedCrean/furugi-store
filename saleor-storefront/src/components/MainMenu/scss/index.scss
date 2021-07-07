@@ -50,18 +50,23 @@
 
   &__center {
     align-self: center;
-    
+
+    svg {
+      width: 5.6rem;
+      height: auto;
+      object-fit: cover;
+    }
 
     @media(min-width: $medium-screen) {
       grid-row: 2;
       display: grid;
       justify-items: center;
-    }
 
-    img, svg {
-      width: 50rem;
-      height: auto;
-      object-fit: cover;
+      img {
+        width: 50rem;
+        height: auto;
+        object-fit: cover;
+      }
     }
   }
 

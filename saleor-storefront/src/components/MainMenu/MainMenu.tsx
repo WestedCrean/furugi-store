@@ -24,6 +24,7 @@ import cartImg from "../../images/cart.svg";
 import hamburgerHoverImg from "../../images/hamburger-hover.svg";
 import hamburgerImg from "../../images/hamburger.svg";
 import logoImg from "../../images/logo.jpg";
+import logoSmallImg from "../../images/logo.svg";
 import searchImg from "../../images/search.svg";
 import userImg from "../../images/user.svg";
 import {
@@ -168,7 +169,14 @@ const MainMenu: React.FC = () => {
 
           <div className="main-menu__center">
             <Link to={appPaths.baseUrl}>
-              <img src={logoImg} />
+            <Media
+              query={{minWidth: mediumScreen}}>
+                <img src={logoImg} />
+            </Media>
+            <Media
+              query={{maxWidth: mediumScreen}}>
+                <ReactSVG path={logoSmallImg} />
+            </Media>
             </Link>
           </div>
 

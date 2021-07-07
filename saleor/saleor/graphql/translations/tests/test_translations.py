@@ -225,18 +225,6 @@ def test_attribute_value_translation(user_api_client, pink_attribute_value):
                             }
                         }
                     }
-                    choices(first: 10) {
-                        edges {
-                            node {
-                                translation(languageCode: PL) {
-                                    name
-                                    language {
-                                        code
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -254,10 +242,6 @@ def test_attribute_value_translation(user_api_client, pink_attribute_value):
     attribute_value = data["attributes"]["edges"][0]["node"]["values"][-1]
     assert attribute_value["translation"]["name"] == "Różowy"
     assert attribute_value["translation"]["language"]["code"] == "PL"
-
-    attribute_choice = data["attributes"]["edges"][0]["node"]["choices"]["edges"][-1]
-    assert attribute_choice["node"]["translation"]["name"] == "Różowy"
-    assert attribute_choice["node"]["translation"]["language"]["code"] == "PL"
 
 
 def test_shipping_method_translation(
@@ -511,18 +495,6 @@ def test_attribute_value_no_translation(user_api_client, pink_attribute_value):
                             }
                         }
                     }
-                    choices(first: 10) {
-                        edges {
-                            node {
-                                translation(languageCode: PL) {
-                                    name
-                                    language {
-                                        code
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -539,9 +511,6 @@ def test_attribute_value_no_translation(user_api_client, pink_attribute_value):
 
     attribute_value = data["attributes"]["edges"][0]["node"]["values"][-1]
     assert attribute_value["translation"] is None
-
-    attribute_choices = data["attributes"]["edges"][0]["node"]["choices"]["edges"][-1]
-    assert attribute_choices["node"]["translation"] is None
 
 
 def test_shipping_method_no_translation(

@@ -23,6 +23,7 @@ export const Button: React.FC<IProps> = ({
       data-test={testingContext}
       data-test-id={testingContextId}
       color={color}
+      className='button'
       fullWidth={fullWidth}
       size={size}
       ref={btnRef}

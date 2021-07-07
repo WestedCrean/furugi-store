@@ -26,6 +26,7 @@ from prices import Money, TaxedMoney
 from ..account.models import Address, StaffNotificationRecipient, User
 from ..app.models import App, AppInstallation
 from ..app.types import AppType
+from ..checkout import utils
 from ..checkout.models import Checkout
 from ..checkout.utils import add_variant_to_checkout
 from ..core import JobStatus
@@ -41,6 +42,7 @@ from ..discount.models import (
     VoucherTranslation,
 )
 from ..giftcard.models import GiftCard
+from ..invoice.models import Invoice
 from ..menu.models import Menu, MenuItem, MenuItemTranslation
 from ..order import OrderStatus
 from ..order.actions import cancel_fulfillment, fulfill_order_line
@@ -51,6 +53,7 @@ from ..page.models import Page, PageTranslation
 from ..payment import ChargeStatus, TransactionKind
 from ..payment.interface import GatewayConfig, PaymentData
 from ..payment.models import Payment
+from ..plugins.invoicing.plugin import InvoicingPlugin
 from ..plugins.models import PluginConfiguration
 from ..plugins.vatlayer.plugin import VatlayerPlugin
 from ..product import AttributeInputType
@@ -71,7 +74,6 @@ from ..product.models import (
     ProductType,
     ProductVariant,
     ProductVariantTranslation,
-    VariantImage,
 )
 from ..product.tests.utils import create_image
 from ..product.utils.attributes import associate_attribute_values_to_instance
@@ -594,16 +596,6 @@ def shipping_method(shipping_zone):
 
 
 @pytest.fixture
-def shipping_method_weight_based(shipping_zone):
-    method = ShippingMethod.objects.create(
-        name="weight based method",
-        type=ShippingMethodType.WEIGHT_BASED,
-        shipping_zone=shipping_zone,
-    )
-    return method
-
-
-@pytest.fixture
 def color_attribute(db):  # pylint: disable=W0613
     attribute = Attribute.objects.create(slug="color", name="Color")
     AttributeValue.objects.create(attribute=attribute, name="Red", slug="red")
@@ -653,16 +645,6 @@ def attribute_list() -> List[Attribute]:
             ]
         )
     )
-
-
-@pytest.fixture
-def attribute_choices_for_sorting(db):
-    attribute = Attribute.objects.create(slug="sorting", name="Sorting",)
-    AttributeValue.objects.create(attribute=attribute, name="Global", slug="summer")
-    AttributeValue.objects.create(attribute=attribute, name="Apex", slug="zet")
-    AttributeValue.objects.create(attribute=attribute, name="Police", slug="absorb")
-
-    return attribute
 
 
 @pytest.fixture
@@ -1062,7 +1044,6 @@ def product_list(product_type, category, warehouse):
                     name="Test product 1",
                     slug="test-product-a",
                     category=category,
-                    description_plaintext="big blue product",
                     product_type=product_type,
                     is_published=True,
                     visible_in_listings=True,
@@ -1072,7 +1053,6 @@ def product_list(product_type, category, warehouse):
                     name="Test product 2",
                     slug="test-product-b",
                     category=category,
-                    description_plaintext="big orange product",
                     product_type=product_type,
                     is_published=True,
                     visible_in_listings=True,
@@ -1082,7 +1062,6 @@ def product_list(product_type, category, warehouse):
                     name="Test product 3",
                     slug="test-product-c",
                     category=category,
-                    description_plaintext="small red",
                     product_type=product_type,
                     is_published=True,
                     visible_in_listings=True,

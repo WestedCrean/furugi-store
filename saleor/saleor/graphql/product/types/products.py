@@ -493,11 +493,6 @@ class Product(CountableDjangoObjectType):
     is_published = graphene.Boolean(
         required=True, description="Whether the product is published."
     )
-    description = graphene.String(
-        description="Description of the product.",
-        deprecation_reason="Use the `descriptionJson` field instead.",
-        required=True,
-    )
 
     class Meta:
         description = "Represents an individual item for sale in the storefront."
@@ -507,6 +502,7 @@ class Product(CountableDjangoObjectType):
             "available_for_purchase",
             "category",
             "charge_taxes",
+            "description",
             "description_json",
             "id",
             "name",
@@ -677,12 +673,7 @@ class ProductType(CountableDjangoObjectType):
     products = PrefetchingConnectionField(
         Product, description="List of products of this type."
     )
-    tax_rate = TaxRateType(
-        description="A type of tax rate.",
-        deprecation_reason=(
-            "Use the TaxType instead. It will be removed in Saleor 3.0."
-        ),
-    )
+    tax_rate = TaxRateType(description="A type of tax rate.")
     tax_type = graphene.Field(
         TaxType, description="A type of tax. Assigned by enabled tax gateway"
     )
@@ -773,11 +764,6 @@ class Collection(CountableDjangoObjectType):
     background_image = graphene.Field(
         Image, size=graphene.Int(description="Size of the image.")
     )
-    description = graphene.String(
-        description="Description of the collection.",
-        deprecation_reason="Use the `descriptionJson` field instead.",
-        required=True,
-    )
     translation = TranslationField(CollectionTranslation, type_name="collection")
     is_published = graphene.Boolean(
         required=True, description="Whether the collection is published."
@@ -786,6 +772,7 @@ class Collection(CountableDjangoObjectType):
     class Meta:
         description = "Represents a collection of products."
         only_fields = [
+            "description",
             "description_json",
             "id",
             "name",
@@ -810,7 +797,7 @@ class Collection(CountableDjangoObjectType):
 
     @staticmethod
     def resolve_products(root: models.Collection, info, first=None, **kwargs):
-        return root.products.visible_to_user(info.context.user)
+        return root.products.collection_sorted(info.context.user)
 
     @classmethod
     def get_node(cls, info, id):
@@ -850,11 +837,6 @@ class Category(CountableDjangoObjectType):
         description="The storefront's URL for the category.",
         deprecation_reason="This field will be removed after 2020-07-31.",
     )
-    description = graphene.String(
-        description="Description of the category.",
-        deprecation_reason="Use the `descriptionJson` field instead.",
-        required=True,
-    )
     children = PrefetchingConnectionField(
         lambda: Category, description="List of children of the category."
     )
@@ -870,6 +852,7 @@ class Category(CountableDjangoObjectType):
             "storefront."
         )
         only_fields = [
+            "description",
             "description_json",
             "id",
             "level",

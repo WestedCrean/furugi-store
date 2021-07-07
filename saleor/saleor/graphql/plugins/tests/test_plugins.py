@@ -80,12 +80,12 @@ def test_query_plugin_configurations(staff_api_client_can_manage_plugins, settin
 
 
 @pytest.mark.parametrize(
-    "password, expected_password, api_key, expected_api_key, cert, expected_cert",
+    "password, expected_password, api_key, expected_api_key",
     [
-        (None, None, None, None, None, None),
-        ("ABCDEFGHIJ", "", "123456789", "6789", "long text\n with new\n lines", "ines"),
-        ("", None, "", None, "", None),
-        (None, None, "1234", "4", None, None),
+        (None, None, None, None),
+        ("ABCDEFGHIJ", "", "123456789", "6789"),
+        ("", None, "", None),
+        (None, None, "1234", "4"),
     ],
 )
 def test_query_plugins_hides_secret_fields(
@@ -93,8 +93,6 @@ def test_query_plugins_hides_secret_fields(
     expected_password,
     api_key,
     expected_api_key,
-    cert,
-    expected_cert,
     staff_api_client,
     permission_manage_plugins,
     settings,
@@ -109,8 +107,6 @@ def test_query_plugins_hides_secret_fields(
             conf_field["value"] = password
         if conf_field["name"] == "API private key":
             conf_field["value"] = api_key
-        if conf_field["name"] == "certificate":
-            conf_field["value"] = cert
     manager.save_plugin_configuration(
         PluginSample.PLUGIN_ID,
         {

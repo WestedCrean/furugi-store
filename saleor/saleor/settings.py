@@ -243,6 +243,7 @@ INSTALLED_APPS = [
     "saleor.invoice",
     "saleor.seo",
     "saleor.shipping",
+    "saleor.search",
     "saleor.site",
     "saleor.data_feeds",
     "saleor.page",
@@ -336,7 +337,7 @@ LOGGING = {
         "saleor": {"level": "DEBUG", "propagate": True},
         "saleor.graphql.errors.handled": {
             "handlers": ["default"],
-            "level": "INFO",
+            "level": "ERROR",
             "propagate": False,
         },
         "graphql.execution.utils": {"propagate": False},
@@ -461,6 +462,8 @@ PLACEHOLDER_IMAGES = {
 
 DEFAULT_PLACEHOLDER = "images/placeholder255x255.png"
 
+SEARCH_BACKEND = "saleor.search.backends.postgresql"
+
 AUTHENTICATION_BACKENDS = [
     "saleor.core.auth_backend.JSONWebTokenBackend",
 ]
@@ -515,7 +518,6 @@ PLUGINS = [
     "saleor.payment.gateways.braintree.plugin.BraintreeGatewayPlugin",
     "saleor.payment.gateways.razorpay.plugin.RazorpayGatewayPlugin",
     "saleor.payment.gateways.adyen.plugin.AdyenGatewayPlugin",
-    "saleor.payment.gateways.authorize_net.plugin.AuthorizeNetGatewayPlugin",
     "saleor.plugins.invoicing.plugin.InvoicingPlugin",
 ]
 

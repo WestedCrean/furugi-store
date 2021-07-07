@@ -9,7 +9,7 @@ import { Icon, NavLink } from "@components/atoms";
 import { largeScreen, smallScreen } from "@styles/constants";
 import { maybe } from "@utils/misc";
 
-import LogoSmall from "images/logo-small.svg";
+import LogoSmall from "images/logo-small.jpg";
 import Logo from "images/logo.jpg";
 
 import { Dropdown } from "./Dropdown";

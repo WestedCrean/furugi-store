@@ -1,5 +1,3 @@
-from unittest import mock
-
 import pytest
 
 from .....checkout import calculations
@@ -20,7 +18,6 @@ def adyen_plugin(settings):
         origin_url=None,
         adyen_auto_capture=None,
         auto_capture=None,
-        apple_pay_cert=None,
     ):
         api_key = api_key or "test_key"
         merchant_account = merchant_account or "SaleorECOM"
@@ -31,25 +28,22 @@ def adyen_plugin(settings):
         auto_capture = auto_capture or False
         settings.PLUGINS = ["saleor.payment.gateways.adyen.plugin.AdyenGatewayPlugin"]
         manager = get_plugins_manager()
-
-        with mock.patch("saleor.payment.gateways.adyen.utils.apple_pay.requests.post"):
-            manager.save_plugin_configuration(
-                AdyenGatewayPlugin.PLUGIN_ID,
-                {
-                    "active": True,
-                    "configuration": [
-                        {"name": "api-key", "value": api_key},
-                        {"name": "merchant-account", "value": merchant_account},
-                        {"name": "return-url", "value": return_url},
-                        {"name": "client-key", "value": client_key},
-                        {"name": "origin-url", "value": origin_url},
-                        {"name": "adyen-auto-capture", "value": adyen_auto_capture},
-                        {"name": "auto-capture", "value": auto_capture},
-                        {"name": "supported-currencies", "value": "USD"},
-                        {"name": "apple-pay-cert", "value": apple_pay_cert},
-                    ],
-                },
-            )
+        manager.save_plugin_configuration(
+            AdyenGatewayPlugin.PLUGIN_ID,
+            {
+                "active": True,
+                "configuration": [
+                    {"name": "api-key", "value": api_key},
+                    {"name": "merchant-account", "value": merchant_account},
+                    {"name": "return-url", "value": return_url},
+                    {"name": "client-key", "value": client_key},
+                    {"name": "origin-url", "value": origin_url},
+                    {"name": "adyen-auto-capture", "value": adyen_auto_capture},
+                    {"name": "auto-capture", "value": auto_capture},
+                    {"name": "supported-currencies", "value": "USD"},
+                ],
+            },
+        )
 
         manager = get_plugins_manager()
         return manager.plugins[0]

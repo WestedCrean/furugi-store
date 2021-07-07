@@ -503,16 +503,6 @@ def test_create_product_variant_update_with_new_attributes(
                     slug
                     __typename
                   }
-                  choices(first: 10) {
-                    edges {
-                      node {
-                        id
-                        name
-                        slug
-                        __typename
-                      }
-                    }
-                  }
                   __typename
                 }
                 __typename

@@ -10,13 +10,13 @@ from graphene_django.filter import GlobalIDFilter, GlobalIDMultipleChoiceFilter
 from ...product.filters import filter_products_by_attributes_values
 from ...product.models import (
     Attribute,
-    AttributeValue,
     Category,
     Collection,
     Product,
     ProductType,
     ProductVariant,
 )
+from ...search.backends import picker
 from ...warehouse.models import Stock
 from ..core.filters import EnumFilter, ListObjectTypeFilter, ObjectTypeFilter
 from ..core.types import FilterInputObjectType
@@ -179,24 +179,10 @@ def filter_stock_availability(qs, _, value):
     return qs
 
 
-def product_search(phrase):
-    """Return matching products for storefront views.
-
-    Fuzzy storefront search that is resistant to small typing errors made
-    by user. Name and description is matched using search vector.
-
-    Args:
-        phrase (str): searched phrase
-
-    """
-    ft_in_description_or_name = Q(search_vector=phrase)
-    ft_by_sku = Q(variants__sku__search=phrase)
-    return Product.objects.filter((ft_in_description_or_name | ft_by_sku))
-
-
 def filter_search(qs, _, value):
     if value:
-        qs = qs.distinct() & product_search(value).distinct()
+        search = picker.pick_backend()
+        qs = qs.distinct() & search(value).distinct()
     return qs
 
 
@@ -440,16 +426,6 @@ class AttributeFilter(django_filters.FilterSet):
         return filter_attributes_by_product_types(queryset, name, value, requestor)
 
 
-class AttributeChoiceFilter(django_filters.FilterSet):
-    search = django_filters.CharFilter(
-        method=filter_fields_containing_value("slug", "name")
-    )
-
-    class Meta:
-        model = AttributeValue
-        fields = ["search"]
-
-
 class ProductFilterInput(FilterInputObjectType):
     class Meta:
         filterset_class = ProductFilter
@@ -478,8 +454,3 @@ class ProductTypeFilterInput(FilterInputObjectType):
 class AttributeFilterInput(FilterInputObjectType):
     class Meta:
         filterset_class = AttributeFilter
-
-
-class AttributeChoiceFilterInput(FilterInputObjectType):
-    class Meta:
-        filterset_class = AttributeChoiceFilter

@@ -405,8 +405,7 @@ type Attribute implements Node & ObjectWithMetadata {
   inputType: AttributeInputTypeEnum
   name: String
   slug: String
-  values: [AttributeValue] @deprecated(reason: "Use the `choices` field instead. It will be removed in Saleor 3.0.")
-  choices(sortBy: AttributeChoicesSortingInput, filter: AttributeChoiceFilterInput, before: String, after: String, first: Int, last: Int): AttributeValueCountableConnection
+  values: [AttributeValue]
   valueRequired: Boolean!
   visibleInStorefront: Boolean!
   filterableInStorefront: Boolean!
@@ -431,20 +430,6 @@ type AttributeBulkDelete {
   errors: [Error!]! @deprecated(reason: "Use typed errors with error codes. This field will be removed after 2020-07-31.")
   count: Int!
   productErrors: [ProductError!]!
-}
-
-input AttributeChoiceFilterInput {
-  search: String
-}
-
-enum AttributeChoicesSortField {
-  NAME
-  SLUG
-}
-
-input AttributeChoicesSortingInput {
-  direction: OrderDirection!
-  field: AttributeChoicesSortField!
 }
 
 type AttributeClearMeta {
@@ -620,17 +605,6 @@ type AttributeValueBulkDelete {
   productErrors: [ProductError!]!
 }
 
-type AttributeValueCountableConnection {
-  pageInfo: PageInfo!
-  edges: [AttributeValueCountableEdge!]!
-  totalCount: Int
-}
-
-type AttributeValueCountableEdge {
-  node: AttributeValue!
-  cursor: String!
-}
-
 type AttributeValueCreate {
   errors: [Error!]! @deprecated(reason: "Use typed errors with error codes. This field will be removed after 2020-07-31.")
   attribute: Attribute
@@ -744,6 +718,7 @@ type Category implements Node & ObjectWithMetadata {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
   slug: String!
   parent: Category
@@ -755,7 +730,6 @@ type Category implements Node & ObjectWithMetadata {
   ancestors(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
   products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
   url: String @deprecated(reason: "This field will be removed after 2020-07-31.")
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
   children(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
   backgroundImage(size: Int): Image
   translation(languageCode: LanguageCodeEnum!): CategoryTranslation
@@ -833,8 +807,8 @@ type CategoryTranslatableContent implements Node {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): CategoryTranslation
   category: Category
 }
@@ -850,9 +824,9 @@ type CategoryTranslation implements Node {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
   language: LanguageDisplay!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
 }
 
 type CategoryUpdate {
@@ -1097,6 +1071,7 @@ type Collection implements Node & ObjectWithMetadata {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
   publicationDate: Date
   slug: String!
@@ -1106,7 +1081,6 @@ type Collection implements Node & ObjectWithMetadata {
   meta: [MetaStore]! @deprecated(reason: "Use the `metadata` field. This field will be removed after 2020-07-31.")
   products(filter: ProductFilterInput, sortBy: ProductOrder, before: String, after: String, first: Int, last: Int): ProductCountableConnection
   backgroundImage(size: Int): Image
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): CollectionTranslation
   isPublished: Boolean!
 }
@@ -1229,8 +1203,8 @@ type CollectionTranslatableContent implements Node {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): CollectionTranslation
   collection: Collection
 }
@@ -1246,9 +1220,9 @@ type CollectionTranslation implements Node {
   seoDescription: String
   id: ID!
   name: String!
+  description: String!
   descriptionJson: JSONString!
   language: LanguageDisplay!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
 }
 
 type CollectionUpdate {
@@ -1287,7 +1261,6 @@ enum ConfigurationTypeFieldEnum {
   BOOLEAN
   SECRET
   PASSWORD
-  SECRETMULTILINE
 }
 
 type ConfirmAccount {
@@ -2719,7 +2692,6 @@ type Mutation {
   paymentCapture(amount: PositiveDecimal, paymentId: ID!): PaymentCapture
   paymentRefund(amount: PositiveDecimal, paymentId: ID!): PaymentRefund
   paymentVoid(paymentId: ID!): PaymentVoid
-  paymentInitialize(gateway: String!, paymentData: JSONString): PaymentInitialize
   pageCreate(input: PageInput!): PageCreate
   pageDelete(id: ID!): PageDelete
   pageBulkDelete(ids: [ID]!): PageBulkDelete
@@ -3275,6 +3247,7 @@ type Page implements Node & ObjectWithMetadata {
   seoDescription: String
   id: ID!
   title: String!
+  content: String!
   contentJson: JSONString!
   publicationDate: Date
   slug: String!
@@ -3283,7 +3256,6 @@ type Page implements Node & ObjectWithMetadata {
   metadata: [MetadataItem]!
   privateMeta: [MetaStore]! @deprecated(reason: "Use the `privetaMetadata` field. This field will be removed after 2020-07-31.")
   meta: [MetaStore]! @deprecated(reason: "Use the `metadata` field. This field will be removed after 2020-07-31.")
-  content: String! @deprecated(reason: "Use the `contentJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): PageTranslation
   isPublished: Boolean!
 }
@@ -3376,8 +3348,8 @@ type PageTranslatableContent implements Node {
   seoDescription: String
   id: ID!
   title: String!
+  content: String!
   contentJson: JSONString!
-  content: String! @deprecated(reason: "Use the `contentJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): PageTranslation
   page: Page
 }
@@ -3393,9 +3365,9 @@ type PageTranslation implements Node {
   seoDescription: String
   id: ID!
   title: String!
+  content: String!
   contentJson: JSONString!
   language: LanguageDisplay!
-  content: String! @deprecated(reason: "Use the `contentJson` field instead.")
 }
 
 input PageTranslationInput {
@@ -3492,18 +3464,6 @@ type PaymentGateway {
   id: ID!
   config: [GatewayConfigLine!]!
   currencies: [String]!
-}
-
-type PaymentInitialize {
-  errors: [Error!]! @deprecated(reason: "Use typed errors with error codes. This field will be removed after 2020-07-31.")
-  initializedPayment: PaymentInitialized
-  paymentErrors: [PaymentError!]!
-}
-
-type PaymentInitialized {
-  gateway: String!
-  name: String!
-  data: JSONString
 }
 
 input PaymentInput {
@@ -3691,6 +3651,7 @@ type Product implements Node & ObjectWithMetadata {
   seoTitle: String
   seoDescription: String
   name: String!
+  description: String!
   descriptionJson: JSONString!
   publicationDate: Date
   productType: ProductType!
@@ -3722,7 +3683,6 @@ type Product implements Node & ObjectWithMetadata {
   translation(languageCode: LanguageCodeEnum!): ProductTranslation
   isAvailableForPurchase: Boolean
   isPublished: Boolean!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
 }
 
 type ProductBulkDelete {
@@ -3937,7 +3897,6 @@ enum ProductOrderField {
   TYPE
   PUBLISHED
   PUBLICATION_DATE
-  COLLECTION
 }
 
 type ProductPricingInfo {
@@ -3965,8 +3924,8 @@ type ProductTranslatableContent implements Node {
   seoTitle: String
   seoDescription: String
   name: String!
+  description: String!
   descriptionJson: JSONString!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
   translation(languageCode: LanguageCodeEnum!): ProductTranslation
   product: Product
 }
@@ -3982,9 +3941,9 @@ type ProductTranslation implements Node {
   seoTitle: String
   seoDescription: String
   name: String!
+  description: String!
   descriptionJson: JSONString!
   language: LanguageDisplay!
-  description: String! @deprecated(reason: "Use the `descriptionJson` field instead.")
 }
 
 type ProductType implements Node & ObjectWithMetadata {
@@ -4000,7 +3959,7 @@ type ProductType implements Node & ObjectWithMetadata {
   privateMeta: [MetaStore]! @deprecated(reason: "Use the `privetaMetadata` field. This field will be removed after 2020-07-31.")
   meta: [MetaStore]! @deprecated(reason: "Use the `metadata` field. This field will be removed after 2020-07-31.")
   products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
-  taxRate: TaxRateType @deprecated(reason: "Use the TaxType instead. It will be removed in Saleor 3.0.")
+  taxRate: TaxRateType
   taxType: TaxType
   variantAttributes: [Attribute]
   productAttributes: [Attribute]
@@ -4805,7 +4764,7 @@ input ShippingZoneUpdateInput {
 
 type Shop {
   availablePaymentGateways(currency: String): [PaymentGateway!]!
-  geolocalization: Geolocalization @deprecated(reason: "Server-side geolocalization will be dropped in Saleor 3.0.")
+  geolocalization: Geolocalization
   authorizationKeys: [AuthorizationKey]!
   countries(languageCode: LanguageCodeEnum): [CountryDisplay!]!
   currencies: [String]! @deprecated(reason: "This field will be removed in Saleor 3.0")

@@ -58,7 +58,6 @@ from ...product.models import (
     ProductImage,
     ProductType,
     ProductVariant,
-    VariantImage,
 )
 from ...product.tasks import update_products_minimal_variant_prices_of_discount_task
 from ...product.thumbnails import (
@@ -238,7 +237,7 @@ def create_stocks(variant, warehouse_qs=None, **defaults):
         )
 
 
-def create_product_variants(variants_data, create_images):
+def create_product_variants(variants_data):
     for variant in variants_data:
         pk = variant["pk"]
         defaults = variant["fields"]
@@ -256,9 +255,6 @@ def create_product_variants(variants_data, create_images):
             product = variant.product
             product.default_variant = variant
             product.save(update_fields=["default_variant", "updated_at"])
-        if create_images:
-            image = variant.product.images.first()
-            VariantImage.objects.create(variant=variant, image=image)
         quantity = random.randint(100, 500)
         create_stocks(variant, quantity=quantity)
 
@@ -331,9 +327,7 @@ def create_products_by_schema(placeholder_dir, create_images):
         placeholder_dir=placeholder_dir,
         create_images=create_images,
     )
-    create_product_variants(
-        variants_data=types["product.productvariant"], create_images=create_images
-    )
+    create_product_variants(variants_data=types["product.productvariant"])
     assign_attributes_to_product_types(
         AttributeProduct, attributes=types["product.attributeproduct"]
     )

@@ -77,9 +77,7 @@ class Shop(graphene.ObjectType):
         required=True,
     )
     geolocalization = graphene.Field(
-        Geolocalization,
-        description="Customer's geolocalization data.",
-        deprecation_reason="Server-side geolocalization will be dropped in Saleor 3.0.",
+        Geolocalization, description="Customer's geolocalization data."
     )
     authorization_keys = graphene.List(
         AuthorizationKey,
