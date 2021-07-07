@@ -9,9 +9,9 @@ const textProps = css`
 
 export const Wrapper = styled.div`
   background: ${props => props.theme.colors.light};
-  padding: 2.5rem;
+  padding: 2rem;
   text-align: center;
-  max-height: 30rem;
+  max-width: 30rem;
   transition: 0.3s;
 
   :hover {
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   }
 
   ${media.largeScreen`
-    padding: 1.8rem;
+    padding: 1rem 1.8rem;
   `}
 `;
 

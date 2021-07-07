@@ -27,7 +27,3 @@ workbox.routing.registerNavigationRoute(
     ],
   }
 );
-workbox.routing.registerRoute(
-  new RegExp('/.*'),
-  new workbox.strategies.CacheFirst()
-);

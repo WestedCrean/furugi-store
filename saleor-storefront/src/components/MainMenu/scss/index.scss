@@ -12,7 +12,7 @@
 
   @media (min-width: $medium-screen) {
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;  
+    grid-template-rows: 1fr 3fr 1fr;  
     height: inherit;
   }
 
@@ -58,10 +58,10 @@
       justify-items: center;
     }
 
-    svg {
-      width: 6rem;
-      height: 55px;
-      margin: auto;
+    img, svg {
+      width: 50rem;
+      height: auto;
+      object-fit: cover;
     }
   }
 

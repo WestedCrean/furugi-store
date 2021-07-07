@@ -55,7 +55,7 @@ export const META_DEFAULTS = {
   custom: [],
   description:
     "",
-  image: `${window.location.origin}${require("../images/logo.svg")}`,
+  image: `${window.location.origin}${require("../images/logo.jpg")}`,
   title: "Furugi Vintage Store",
   type: "website",
   url: window.location.origin,

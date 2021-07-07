@@ -23,7 +23,7 @@ import { TypedMainMenuQuery } from "./queries";
 import cartImg from "../../images/cart.svg";
 import hamburgerHoverImg from "../../images/hamburger-hover.svg";
 import hamburgerImg from "../../images/hamburger.svg";
-import logoImg from "../../images/logo.svg";
+import logoImg from "../../images/logo.jpg";
 import searchImg from "../../images/search.svg";
 import userImg from "../../images/user.svg";
 import {
@@ -168,7 +168,7 @@ const MainMenu: React.FC = () => {
 
           <div className="main-menu__center">
             <Link to={appPaths.baseUrl}>
-              <ReactSVG path={logoImg} />
+              <img src={logoImg} />
             </Link>
           </div>
 
