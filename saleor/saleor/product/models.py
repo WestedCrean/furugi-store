@@ -4,9 +4,11 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.postgres.aggregates import StringAgg
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models import JSONField  # type: ignore
-from django.db.models import Case, Count, F, FilteredRelation, Q, Sum, Value, When
+from django.db.models import Case, Count, F, FilteredRelation, Q, Sum, TextField, Value, When
 from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.encoding import smart_text
@@ -144,7 +146,6 @@ class ProductsQueryset(PublishedQuerySet):
         self, attribute_pk: Union[int, str], descending: bool = False
     ):
         """Sort a query set by the values of the given product attribute.
-
         :param attribute_pk: The database ID (must be a numeric) of the attribute
                              to sort by.
         :param descending: The sorting direction.
@@ -245,6 +246,9 @@ class Product(SeoModel, ModelWithMetadata, PublishableModel):
     description_json = SanitizedJSONField(
         blank=True, default=dict, sanitizer=clean_draft_js
     )
+    description_plaintext = TextField(blank=True)
+    search_vector = SearchVectorField(null=True, blank=True)
+    
     category = models.ForeignKey(
         Category,
         related_name="products",
@@ -290,6 +294,8 @@ class Product(SeoModel, ModelWithMetadata, PublishableModel):
         permissions = (
             (ProductPermissions.MANAGE_PRODUCTS.codename, "Manage products."),
         )
+        indexes = [GinIndex(fields=["search_vector"])]
+        indexes.extend(ModelWithMetadata.Meta.indexes)
 
     def __iter__(self):
         if not hasattr(self, "__variants"):
@@ -365,7 +371,6 @@ class ProductVariantQueryset(models.QuerySet):
 
     def create(self, **kwargs):
         """Create a product's variant.
-
         After the creation update the "minimal_variant_price" of the product.
         """
         variant = super().create(**kwargs)
@@ -377,7 +382,6 @@ class ProductVariantQueryset(models.QuerySet):
 
     def bulk_create(self, objs, batch_size=None, ignore_conflicts=False):
         """Insert each of the product's variant instances into the database.
-
         After the creation update the "minimal_variant_price" of all the products.
         """
         variants = super().bulk_create(

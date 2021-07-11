@@ -50,6 +50,8 @@ def jwt_user_payload(
 
 
 def jwt_encode(payload: Dict[str, Any]) -> str:
+    print(payload)
+    print(jwt)
     return jwt.encode(
         payload, settings.SECRET_KEY, JWT_ALGORITHM,  # type: ignore
     ).decode("utf-8")
