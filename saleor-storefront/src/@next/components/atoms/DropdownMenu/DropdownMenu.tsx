@@ -12,7 +12,7 @@ export const DropdownMenu: React.FC<IProps> = ({
 }: IProps) => {
   const [visible, setVisible] = useState(false);
   const { setElementRef } = useHandlerWhenClickedOutside(() => {
-    setVisible(false);
+    setVisible(true);
   });
   return (
     <S.Wrapper
