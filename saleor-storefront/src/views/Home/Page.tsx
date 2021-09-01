@@ -11,8 +11,7 @@ import { generateCategoryUrl, generateCollectionUrl } from "../../core/utils";
 import {
   ProductsList_categories,
   ProductsList_shop,
-  ProductsList_shop_homepageCollection,
-  ProductsList_shop_homepageCollection_backgroundImage,
+  ProductsList_shop_homepageCollection
 } from "./gqlTypes/ProductsList";
 
 import { structuredData } from "../../core/SEO/Homepage/structuredData";
@@ -25,14 +24,12 @@ const Page: React.FC<{
   featured: ProductsList_shop_homepageCollection;
   shop: ProductsList_shop;
 }> = ({ loading, categories, featured, shop }) => {
-  
   const categoriesExist = () => {
     return categories && categories.edges && categories.edges.length > 0;
   };
 
   const featuredCollectionExists = () => {
-    console.log({featured})
-    return featured && featured.id && featured.name && featured.backgroundImage
+    return featured && featured.id && featured.name && featured.backgroundImage;
   };
 
   const intl = useIntl();
@@ -42,7 +39,7 @@ const Page: React.FC<{
       <script className="structured-data-list" type="application/ld+json">
         {structuredData(shop)}
       </script>
-      { featuredCollectionExists() &&
+      {featuredCollectionExists() && (
         <div
           className="home-page__hero"
           style={
@@ -55,14 +52,16 @@ const Page: React.FC<{
             <div>
               <span className="home-page__hero__title">
                 <h1>
-                  {featuredCollectionExists() ?  featured.name: <FormattedMessage defaultMessage="Nowy drop" />}
+                  {featuredCollectionExists() ? (
+                    featured.name
+                  ) : (
+                    <FormattedMessage defaultMessage="Nowy drop" />
+                  )}
                 </h1>
               </span>
             </div>
           </div>
 
-
-          
           <div className="home-page__hero-action">
             {loading && !categories ? (
               <Loader />
@@ -71,16 +70,11 @@ const Page: React.FC<{
                 <Link
                   to={() => {
                     try {
-                      console.log({featured, "featuredCollectionExists": featuredCollectionExists()})
-                      return generateCollectionUrl(
-                        featured.id,
-                        featured.name
-                      )
+
+                      return generateCollectionUrl(featured.id, featured.name);
                     } catch (e) {
-                      console.error(e)
-                      return ''
+                      return "";
                     }
-                    
                   }}
                 >
                   <Button skew testingContext="homepageHeroActionButton">
@@ -91,13 +85,12 @@ const Page: React.FC<{
             )}
           </div>
         </div>
-      }
+      )}
 
       <ProductsFeatured
         title={intl.formatMessage({ defaultMessage: "Wybrane" })}
       />
 
-      
       {categoriesExist() && (
         <div className="home-page__categories">
           <div className="container">
@@ -120,11 +113,10 @@ const Page: React.FC<{
                         }
                       )}
                       style={{
-                        backgroundImage: `url(${
-                          category.backgroundImage
-                            ? category.backgroundImage.url
-                            : noPhotoImg
-                        })`,
+                        backgroundImage: `url(${category.backgroundImage
+                          ? category.backgroundImage.url
+                          : noPhotoImg
+                          })`,
                       }}
                     />
                     <h3>{category.name}</h3>

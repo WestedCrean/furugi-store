@@ -28,13 +28,13 @@ class NavDropdown extends React.PureComponent<
   showOverlayHandler = () => {
     if (this.hasSubNavigation) {
       this.setState({ active: true });
-      this.props.overlay.show(OverlayType.mainMenuNav, OverlayTheme.modal);
+      // this.props.overlay.show(OverlayType.mainMenuNav, OverlayTheme.modal);
     }
   };
 
   hideOverlayHandler = () => {
     if (this.state.active) {
-      this.props.overlay.hide();
+      // this.props.overlay.hide();
       this.setState({ active: false });
     }
   };

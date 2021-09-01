@@ -49,12 +49,11 @@ export const SOCIAL_MEDIA = [
     ariaLabel: "instagram",
     href: "https://www.instagram.com/furugivintagestore/",
     path: require("../images/instagram-icon.svg"),
-  }
+  },
 ];
 export const META_DEFAULTS = {
   custom: [],
-  description:
-    "",
+  description: "",
   image: `${window.location.origin}${require("../images/logo.jpg")}`,
   title: "Furugi Vintage Store",
   type: "website",

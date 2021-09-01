@@ -10,8 +10,6 @@ const View: React.FC = () => (
   <div className="home-page">
     <TypedHomePageQuery alwaysRender displayLoader={false} errorPolicy="all">
       {({ data, loading }) => {
-
-        console.log({data})
         return (
           <MetaWrapper
             meta={{
@@ -21,15 +19,7 @@ const View: React.FC = () => (
           >
             <Page
               loading={loading}
-              featured= {
-                data.shop &&
-                data.shop.homepageCollection
-              }
-              backgroundImage={
-                data.shop &&
-                data.shop.homepageCollection &&
-                data.shop.homepageCollection.backgroundImage
-              }
+              featured={data.shop && data.shop.homepageCollection}
               categories={data.categories}
               shop={data.shop}
             />

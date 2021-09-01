@@ -12,10 +12,7 @@ const Empty: React.FC<{ overlayHide(): void }> = ({ overlayHide }) => (
       <FormattedMessage defaultMessage="You haven’t added anything to your bag. We’re sure you’ll find something in our store" />
     </p>
     <div className="cart__empty__action">
-      <Button
-        testingContext="emptyCartHideOverlayButton"
-        onClick={overlayHide}
-      >
+      <Button testingContext="emptyCartHideOverlayButton" onClick={overlayHide}>
         <FormattedMessage defaultMessage="Continue Shopping" />
       </Button>
     </div>

@@ -40,7 +40,6 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix search crashing when displaying item with no category - #928 by @mmarkusik
 - Fix generating site map - #915 by @rboixaderg
 
-
 ## 2.10.4
 
 - Fix build errors introduced in version 2.10.3 - by @dominik-zeglen

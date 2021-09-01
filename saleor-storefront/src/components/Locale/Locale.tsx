@@ -1,7 +1,6 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
 
-
 import locale_PL from "@locale/pl.json";
 import locale_EN from "@locale/en.json";
 
@@ -23,7 +22,7 @@ const localeData: Record<Locale, LocaleMessages> = {
 
 export const localeNames: Record<Locale, string> = {
   [Locale.EN]: "english",
-  [Locale.PL]: "polski",  
+  [Locale.PL]: "polski",
 };
 
 const dotSeparator = "_dot_";

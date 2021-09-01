@@ -31,7 +31,6 @@ export const getDBIdFromGraphqlId = (
   const regexp = /(\w+):(\d+)/;
   const arr = regexp.exec(rawId);
   if (schema && schema !== arr![1]) {
-    console.log({graphqlId, schema, arr})
     throw new Error("Schema is not correct");
   }
   return parseInt(arr![2], 10);

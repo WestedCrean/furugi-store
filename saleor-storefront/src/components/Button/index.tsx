@@ -25,7 +25,9 @@ const Button: React.FC<ButtonProps> = ({
 }) => (
   <button
     data-test={testingContext}
-    className={`button ${skew ? "skew" : ""} ${secondary ? "secondary" : ""} ${className}`}
+    className={`button ${skew ? "skew" : ""} ${
+      secondary ? "secondary" : ""
+    } ${className}`}
     ref={btnRef}
     type={type as ButtonType}
     {...otherProps}

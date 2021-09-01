@@ -169,14 +169,12 @@ const MainMenu: React.FC = () => {
 
           <div className="main-menu__center">
             <Link to={appPaths.baseUrl}>
-            <Media
-              query={{minWidth: mediumScreen}}>
+              <Media query={{ minWidth: mediumScreen }}>
                 <img src={logoImg} />
-            </Media>
-            <Media
-              query={{maxWidth: mediumScreen}}>
+              </Media>
+              <Media query={{ maxWidth: mediumScreen }}>
                 <ReactSVG path={logoSmallImg} />
-            </Media>
+              </Media>
             </Link>
           </div>
 
