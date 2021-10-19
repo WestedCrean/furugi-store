@@ -28,9 +28,17 @@ const Page: React.FC<{
     return categories && categories.edges && categories.edges.length > 0;
   };
 
+  // TODO: Add multiple possible featured collections
+  // TODO: Add silder if multiple featured collections
+
   const featuredCollectionExists = () => {
     return featured && featured.id && featured.name && featured.backgroundImage;
   };
+
+  const multipleFeaturedCollections = (featured) => {
+    // FIXME: add check
+    return false
+  }
 
   const intl = useIntl();
 

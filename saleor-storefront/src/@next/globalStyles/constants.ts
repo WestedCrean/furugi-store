@@ -30,7 +30,7 @@ export const secondaryBlue = "#036DFF";
 
 // theme colors
 export const theme = {
-  activeMenuOption: darkGreen,
+  activeMenuOption: black,
   autofill: autofillColor,
   autofillSelected: autofillColorSelected,
   bannerBackground: secondaryGrey,
@@ -44,11 +44,11 @@ export const theme = {
   divider: grayLight,
   dividerDark: grayMedium,
   error: rose,
-  hoverLightBackground: tabelGray,
+  hoverLightBackground: white,
   light: grayLight,
   lightFont: gray,
   listAttributeName: baseFontColorSemiTransparent,
-  listBullet: darkGreen,
+  listBullet: black,
   overlay: overlayColor,
   primary: turquoise,
   primaryDark: turquoiseDark,
@@ -60,10 +60,10 @@ export const theme = {
   secondaryOverlay: blueOverlay,
   secondaryOverlayDark: blueOverlayDark,
   success: green,
-  tabTitle: darkGreen,
+  tabTitle: black,
   tableDivider: tabelGray,
   tabsBorder: baseFontColorTransparent,
-  thumbnailBorder: darkGreen,
+  thumbnailBorder: black,
   white,
 };
 
