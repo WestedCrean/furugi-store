@@ -118,6 +118,7 @@
           background-color: $white;
           background-repeat: no-repeat;
           background-size: contain;
+          filter: grayscale(100%);
         }
       }
     }

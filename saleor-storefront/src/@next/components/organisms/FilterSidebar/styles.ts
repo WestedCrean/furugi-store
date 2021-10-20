@@ -12,7 +12,6 @@ export const Wrapper = styled.div`
   background-color: #f5f5f7;
   border: 1px solid #d2d2d7;
   color: black;
-
 `;
 export const Header = styled.div`
   display: flex;
