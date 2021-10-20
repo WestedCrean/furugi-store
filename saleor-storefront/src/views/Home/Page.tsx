@@ -11,7 +11,7 @@ import { generateCategoryUrl, generateCollectionUrl } from "../../core/utils";
 import {
   ProductsList_categories,
   ProductsList_shop,
-  ProductsList_shop_homepageCollection
+  ProductsList_shop_homepageCollection,
 } from "./gqlTypes/ProductsList";
 
 import { structuredData } from "../../core/SEO/Homepage/structuredData";
@@ -35,10 +35,10 @@ const Page: React.FC<{
     return featured && featured.id && featured.name && featured.backgroundImage;
   };
 
-  const multipleFeaturedCollections = (featured) => {
+  const multipleFeaturedCollections = featured => {
     // FIXME: add check
-    return false
-  }
+    return false;
+  };
 
   const intl = useIntl();
 
@@ -78,7 +78,6 @@ const Page: React.FC<{
                 <Link
                   to={() => {
                     try {
-
                       return generateCollectionUrl(featured.id, featured.name);
                     } catch (e) {
                       return "";
@@ -121,10 +120,11 @@ const Page: React.FC<{
                         }
                       )}
                       style={{
-                        backgroundImage: `url(${category.backgroundImage
-                          ? category.backgroundImage.url
-                          : noPhotoImg
-                          })`,
+                        backgroundImage: `url(${
+                          category.backgroundImage
+                            ? category.backgroundImage.url
+                            : noPhotoImg
+                        })`,
                       }}
                     />
                     <h3>{category.name}</h3>

@@ -23,6 +23,6 @@
 
   address {
     font-style: inherit;
-    font-family: Ubuntu, Helvetica, Arial;
+    font-family: Montserrat, "Segoe UI", "SF Pro Text", Helvetica, Arial, sans-serif;
   }
 </mj-style>

@@ -1160,7 +1160,7 @@
   },
   "src_dot_collections_dot_components_dot_CollectionCreatePage_dot_2001551496": {
     "context": "collection",
-    "string": "będzie widoczny od {data}"
+    "string": "będzie widoczny od {date}"
   },
   "src_dot_collections_dot_components_dot_CollectionCreatePage_dot_643174786": {
     "context": "collection label",
@@ -1179,7 +1179,7 @@
   },
   "src_dot_collections_dot_components_dot_CollectionDetailsPage_dot_2001551496": {
     "context": "collection",
-    "string": "będzie widoczny od {data}"
+    "string": "będzie widoczny od {date}"
   },
   "src_dot_collections_dot_components_dot_CollectionDetailsPage_dot_2906897537": {
     "context": "switch button",
@@ -3500,7 +3500,7 @@
   },
   "src_dot_pages_dot_components_dot_PageDetailsPage_dot_2001551496": {
     "context": "page",
-    "string": "będzie widoczny od {data}"
+    "string": "będzie widoczny od {date}"
   },
   "src_dot_pages_dot_components_dot_PageDetailsPage_dot_643174786": {
     "context": "page label",
