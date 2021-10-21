@@ -9,9 +9,6 @@ export const Wrapper = styled.div`
   align-items: center;
 
   box-shadow: 6px 0px 30px rgba(0, 0, 0, 0.15);
-  background-color: #f5f5f7;
-  border: 1px solid #d2d2d7;
-  color: black;
 `;
 export const Header = styled.div`
   display: flex;
@@ -24,4 +21,8 @@ export const Header = styled.div`
 
   font-weight: ${props => props.theme.typography.boldFontWeight};
   font-size: ${props => props.theme.typography.h3FontSize};
+
+  background-color: #f5f5f7;
+  border: 1px solid #d2d2d7;
+  color: black;
 `;

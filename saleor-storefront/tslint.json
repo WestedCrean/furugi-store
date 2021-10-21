@@ -18,6 +18,7 @@
     "no-var-requires": false,
     "no-unused-parameters": false,
     "interface-over-type-literal": false,
+    "semi": false,
     "variable-name": {
       "options": [
         "ban-keywords",
