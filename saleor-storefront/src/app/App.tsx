@@ -25,9 +25,7 @@ const App: React.FC = () => {
     <ShopProvider>
       <OverlayProvider>
         <MetaConsumer />
-        <header>
-          <MainMenu />
-        </header>
+        <MainMenu />
         <Routes />
         <Footer />
         <OverlayManager />

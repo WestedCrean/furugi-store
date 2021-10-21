@@ -1,8 +1,11 @@
 @import "../../../globalStyles/scss/variables.scss";
 
+.header-with-dropdown {
+  z-index: 3;
+}
+
 .main-menu {
   font-size: $small-font-size;
-  align-items: center;
   align-items: stretch;
   background-color: $white;
   border-bottom: 1px solid $gray-light;
@@ -25,7 +28,6 @@
       grid-column: 2;
       display: flex;
       justify-content: left;
-      margin-bottom: 1rem;
     }
 
     ul {
@@ -243,7 +245,7 @@
       left: 0;
       padding: 1rem;
       padding-top: 1.5rem;
-      position: absolute;
+      position: absolute !important;
       top: 100%;
       width: 100%;
       z-index: 3;

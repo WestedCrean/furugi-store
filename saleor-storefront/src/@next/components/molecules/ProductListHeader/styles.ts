@@ -14,6 +14,8 @@ export const Bar = styled.div`
   font-size: ${props => props.theme.typography.smallFontSize};
   margin-top: 1rem;
   margin-bottom: 1.4rem;
+
+  border: 1px solid #d2d2d7;
 `;
 
 export const LeftSide = styled.div`
