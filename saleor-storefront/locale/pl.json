@@ -589,7 +589,7 @@
     "string": "Najstarsze"
   },
   "userAccount_dot_views_dot_OrderDetails_dot_Page_dot_1857586798": {
-    "string": "Your order no.: {orderNum}"
+    "string": "Twoje zamówienie nr.: {orderNum}"
   },
   "userAccount_dot_views_dot_OrderDetails_dot_Page_dot_2670827143": {
     "context": "czynność w menu popup w widoku zamówienia",

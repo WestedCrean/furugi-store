@@ -213,6 +213,7 @@ MIDDLEWARE = [
     "saleor.core.middleware.discounts",
     "saleor.core.middleware.google_analytics",
     "saleor.core.middleware.country",
+    "saleor.core.middleware.customer_ip"
     "saleor.core.middleware.currency",
     "saleor.core.middleware.site",
     "saleor.core.middleware.plugins",

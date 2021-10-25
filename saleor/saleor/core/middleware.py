@@ -73,6 +73,18 @@ def country(get_response):
 
     return _country_middleware
 
+def customer_ip(get_response):
+    """Detect the user's ip and assign it to `request.customer_ip`."""
+
+    def _customer_ip_middleware(request):
+        client_ip = get_client_ip(request)
+        if client_ip:
+            request.customer_ip = client_ip
+        if not request.country:
+            request.customer_ip = None
+        return get_response(request)
+
+    return _customer_ip_middleware
 
 def currency(get_response):
     """Take a country and assign a matching currency to `request.currency`."""

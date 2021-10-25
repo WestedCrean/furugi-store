@@ -46,7 +46,4 @@ export const mainMenu = gql`
 
 const TypedMainMenuQuery = TypedQuery<MainMenu, {}>(mainMenu);
 
-export {
-  TypedMainMenuQuery,
-  ShopMenusQuery
-}
+export { TypedMainMenuQuery, ShopMenusQuery };

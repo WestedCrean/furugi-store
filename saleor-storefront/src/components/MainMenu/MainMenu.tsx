@@ -35,7 +35,6 @@ import {
 } from "../../globalStyles/scss/variables.scss";
 import "./scss/index.scss";
 
-
 const MainMenu: React.FC = () => {
   const overlayContext = useContext(OverlayContext);
 
@@ -64,14 +63,14 @@ const MainMenu: React.FC = () => {
   const showDropdownHandler = (itemId: string, hasSubNavigation: boolean) => {
     if (hasSubNavigation) {
       setActiveDropdown(itemId);
-      console.log(`Dropdown ${itemId} is active`)
+      console.log(`Dropdown ${itemId} is active`);
     }
   };
 
   const hideDropdownHandler = () => {
     if (activeDropdown) {
       setActiveDropdown(undefined);
-      console.log(`Dropdown is deactived`)
+      console.log(`Dropdown is deactived`);
     }
   };
 

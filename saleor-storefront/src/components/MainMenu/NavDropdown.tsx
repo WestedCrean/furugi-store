@@ -16,8 +16,7 @@ class NavDropdown extends React.PureComponent<
     onShowDropdown: () => void;
     onHideDropdown: () => void;
   }
-  > {
- 
+> {
   render() {
     const {
       children,
@@ -46,7 +45,7 @@ class NavDropdown extends React.PureComponent<
         >
           <ul>
             {children.map((subItem, i) => (
-               <NavItem key={i} hideOverlay={onHideDropdown} {...subItem} />
+              <NavItem key={i} hideOverlay={onHideDropdown} {...subItem} />
             ))}
           </ul>
         </li>
