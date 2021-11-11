@@ -5,11 +5,12 @@ import * as React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
-import { Button, Loader, ProductsFeatured } from "../../components";
+import { Button, Loader, ProductsFeatured, CollectionsSlider } from "../../components";
 import { generateCategoryUrl, generateCollectionUrl } from "../../core/utils";
 
 import {
   ProductsList_categories,
+  ProductsList_collections,
   ProductsList_shop,
   ProductsList_shop_homepageCollection,
 } from "./gqlTypes/ProductsList";
@@ -21,9 +22,10 @@ import noPhotoImg from "../../images/no-photo.svg";
 const Page: React.FC<{
   loading: boolean;
   categories: ProductsList_categories;
+  collections: ProductsList_collections;
   featured: ProductsList_shop_homepageCollection;
   shop: ProductsList_shop;
-}> = ({ loading, categories, featured, shop }) => {
+}> = ({ loading, categories, collections, featured, shop }) => {
   const categoriesExist = () => {
     return categories && categories.edges && categories.edges.length > 0;
   };
@@ -35,6 +37,21 @@ const Page: React.FC<{
     return featured && featured.id && featured.name && featured.backgroundImage;
   };
 
+  const collectionsExist = () => {
+    console.log({ collections })
+    return collections && collections.edges && collections.edges.length > 0;
+  };
+
+  const getCollectionsForSlider = () => {
+    if (collectionsExist()) {
+      console.log("Collections exist.");
+      let c = collections.edges;
+      console.log(c);
+      return [featured];
+    }
+    console.log("Collections doesn't exist.");
+  };
+
   const multipleFeaturedCollections = featured => {
     // FIXME: add check
     return false;
@@ -42,57 +59,57 @@ const Page: React.FC<{
 
   const intl = useIntl();
 
+  const featuredCollections = getCollectionsForSlider();
+
   return (
     <>
       <script className="structured-data-list" type="application/ld+json">
         {structuredData(shop)}
       </script>
-      {featuredCollectionExists() && (
-        <div
-          className="home-page__hero"
-          style={
-            featured && featured.backgroundImage
-              ? { backgroundImage: `url(${featured.backgroundImage.url})` }
-              : null
-          }
-        >
-          <div className="home-page__hero-text">
-            <div>
-              <span className="home-page__hero__title">
-                <h1>
-                  {featuredCollectionExists() ? (
-                    featured.name
-                  ) : (
-                    <FormattedMessage defaultMessage="Nowy drop" />
-                  )}
-                </h1>
-              </span>
+      {collectionsExist() &&
+        featuredCollections.map(collection => (
+          <div
+            className="home-page__hero"
+            style={
+              collection && collection.backgroundImage
+                ? { backgroundImage: `url(${collection.backgroundImage.url})` }
+                : null
+            }
+          >
+            <div className="home-page__hero-text">
+              <div>
+                <span className="home-page__hero__title">
+                  <h1>collection.name</h1>
+                </span>
+              </div>
+            </div>
+
+            <div className="home-page__hero-action">
+              {loading && !categories ? (
+                <Loader />
+              ) : (
+                collectionsExist() && (
+                  <Link
+                    to={() => {
+                      try {
+                        return generateCollectionUrl(
+                          collection.id,
+                          collection.name
+                        );
+                      } catch (e) {
+                        return "";
+                      }
+                    }}
+                  >
+                    <Button skew testingContext="homepageHeroActionButton">
+                      <FormattedMessage defaultMessage="Sprawdź" />
+                    </Button>
+                  </Link>
+                )
+              )}
             </div>
           </div>
-
-          <div className="home-page__hero-action">
-            {loading && !categories ? (
-              <Loader />
-            ) : (
-              featuredCollectionExists() && (
-                <Link
-                  to={() => {
-                    try {
-                      return generateCollectionUrl(featured.id, featured.name);
-                    } catch (e) {
-                      return "";
-                    }
-                  }}
-                >
-                  <Button skew testingContext="homepageHeroActionButton">
-                    <FormattedMessage defaultMessage="Sprawdź" />
-                  </Button>
-                </Link>
-              )
-            )}
-          </div>
-        </div>
-      )}
+        ))}
 
       <ProductsFeatured
         title={intl.formatMessage({ defaultMessage: "Wybrane" })}

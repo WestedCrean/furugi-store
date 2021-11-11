@@ -63,14 +63,12 @@ const MainMenu: React.FC = () => {
   const showDropdownHandler = (itemId: string, hasSubNavigation: boolean) => {
     if (hasSubNavigation) {
       setActiveDropdown(itemId);
-      console.log(`Dropdown ${itemId} is active`);
     }
   };
 
   const hideDropdownHandler = () => {
     if (activeDropdown) {
       setActiveDropdown(undefined);
-      console.log(`Dropdown is deactived`);
     }
   };
 

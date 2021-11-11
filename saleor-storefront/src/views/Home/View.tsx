@@ -10,6 +10,7 @@ const View: React.FC = () => (
   <div className="home-page">
     <TypedHomePageQuery alwaysRender displayLoader={false} errorPolicy="all">
       {({ data, loading }) => {
+        console.log({ data });
         return (
           <MetaWrapper
             meta={{
@@ -21,6 +22,7 @@ const View: React.FC = () => (
               loading={loading}
               featured={data.shop && data.shop.homepageCollection}
               categories={data.categories}
+              collections={data.collections}
               shop={data.shop}
             />
           </MetaWrapper>

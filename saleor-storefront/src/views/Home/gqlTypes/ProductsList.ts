@@ -58,6 +58,22 @@ export interface ProductsList_categories_edges_node {
   backgroundImage: ProductsList_categories_edges_node_backgroundImage | null;
 }
 
+export interface ProductsList_collections_edges_node_metadata {  
+  key: string;
+  value: string;
+}
+
+export interface ProductsList_collections_edges_node {
+  __typename: "Category";
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  name: string;
+  backgroundImage: ProductsList_categories_edges_node_backgroundImage | null;
+  metadata: ProductsList_collections_edges_node_metadata[];
+}
+
 export interface ProductsList_categories_edges {
   __typename: "CategoryCountableEdge";
   /**
@@ -66,9 +82,22 @@ export interface ProductsList_categories_edges {
   node: ProductsList_categories_edges_node;
 }
 
+export interface ProductsList_collections_edges {
+  __typename: "CategoryCountableEdge";
+  /**
+   * The item at the end of the edge.
+   */
+  node: ProductsList_collections_edges_node;
+}
+
 export interface ProductsList_categories {
   __typename: "CategoryCountableConnection";
   edges: ProductsList_categories_edges[];
+}
+
+export interface ProductsList_collections {
+  __typename: "CategoryCountableCollections";
+  edges: ProductsList_collections_edges[];
 }
 
 export interface ProductsList {
@@ -80,4 +109,8 @@ export interface ProductsList {
    * List of the shop's categories.
    */
   categories: ProductsList_categories | null;
+  /**
+   * List of the shop's collections.
+   */
+  collections: ProductsList_collections | null;
 }

@@ -8,7 +8,7 @@ const textProps = css`
 `;
 
 export const Wrapper = styled.div`
-  background: ${props => props.theme.colors.light};
+  background: ${props => props.theme.colors.white};
   padding: 2rem;
   text-align: center;
   max-width: 30rem;

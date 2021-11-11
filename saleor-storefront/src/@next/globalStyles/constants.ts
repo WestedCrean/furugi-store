@@ -44,7 +44,7 @@ export const theme = {
   divider: grayLight,
   dividerDark: grayMedium,
   error: rose,
-  hoverLightBackground: white,
+  hoverLightBackground: grayLight,
   light: grayLight,
   lightFont: gray,
   listAttributeName: baseFontColorSemiTransparent,
