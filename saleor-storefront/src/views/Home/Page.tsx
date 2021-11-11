@@ -67,49 +67,8 @@ const Page: React.FC<{
         {structuredData(shop)}
       </script>
       {collectionsExist() &&
-        featuredCollections.map(collection => (
-          <div
-            className="home-page__hero"
-            style={
-              collection && collection.backgroundImage
-                ? { backgroundImage: `url(${collection.backgroundImage.url})` }
-                : null
-            }
-          >
-            <div className="home-page__hero-text">
-              <div>
-                <span className="home-page__hero__title">
-                  <h1>collection.name</h1>
-                </span>
-              </div>
-            </div>
-
-            <div className="home-page__hero-action">
-              {loading && !categories ? (
-                <Loader />
-              ) : (
-                collectionsExist() && (
-                  <Link
-                    to={() => {
-                      try {
-                        return generateCollectionUrl(
-                          collection.id,
-                          collection.name
-                        );
-                      } catch (e) {
-                        return "";
-                      }
-                    }}
-                  >
-                    <Button skew testingContext="homepageHeroActionButton">
-                      <FormattedMessage defaultMessage="Sprawdź" />
-                    </Button>
-                  </Link>
-                )
-              )}
-            </div>
-          </div>
-        ))}
+        <CollectionsSlider collections={featuredCollections}/>  
+      }
 
       <ProductsFeatured
         title={intl.formatMessage({ defaultMessage: "Wybrane" })}
